@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}Student Registration - Placement Portal{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-lg">
+            <div class="card-header bg-success text-white text-center">
+                <h4 class="mb-0"><i class="bi bi-mortarboard"></i> Student Registration</h4>
+            </div>
+
+
+
+
+            <div class="card-body p-4">
+                <form method="POST" action="{{ url_for('auth.register_student') }}">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                            <input type="password" class="form-control" id="password" name="password" required
+                                minlength="6">
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Full Name</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-person"></i></span>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="mb-3">
+                        <label for="student_id" class="form-label">Student ID / Roll Number</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-card-text"></i></span>
+                            <input type="text" class="form-control" id="student_id" name="student_id" required>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="mb-3">
+                        <label for="contact" class="form-label">Contact Number</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                            <input type="tel" class="form-control" id="contact" name="contact">
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="mb-3">
+                        <label for="resume_bio" class="form-label">Resume / Bio</label>
+                        <textarea class="form-control" id="resume_bio" name="resume_bio" rows="4"
+                            placeholder="Brief description of your skills, qualifications, and experience..."></textarea>
+                    </div>
+
+
+
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success btn-lg">
+                            <i class="bi bi-check-circle"></i> Register
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+
+
+
+            <div class="card-footer text-center">
+                <p class="mb-0"><a href="{{ url_for('auth.register') }}"><i class="bi bi-arrow-left"></i> Back to
+                        registration options</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

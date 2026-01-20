@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Profile - Placement Portal{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-person-circle"></i> Edit Profile</h2>
+    <a href="{{ url_for('student.dashboard') }}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> Back to Dashboard
+    </a>
+</div>
+
+
+
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0"><i class="bi bi-person"></i> Your Profile</h5>
+            </div>
+
+
+
+
+            <div class="card-body p-4">
+                <form method="POST" action="{{ url_for('student.profile') }}">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="email" value="{{ student.user.email }}" disabled>
+                        <small class="text-muted">Email cannot be changed.</small>
+                    </div>
+
+
+
+
+                    <div class="mb-3">
+                        <label for="student_id" class="form-label">Student ID</label>
+                        <input type="text" class="form-control" id="student_id" value="{{ student.student_id }}"
+                            disabled>
+                        <small class="text-muted">Student ID cannot be changed.</small>
+                    </div>
+
+
+
+
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ student.name }}"
+                            required>
+                    </div>
+
+
+
+
+                    <div class="mb-3">
+                        <label for="contact" class="form-label">Contact Number</label>
+                        <input type="tel" class="form-control" id="contact" name="contact"
+                            value="{{ student.contact or '' }}">
+                    </div>
+
+
+
+
+                    <div class="mb-3">
+                        <label for="resume_bio" class="form-label">Resume / Bio</label>
+                        <textarea class="form-control" id="resume_bio" name="resume_bio"
+                            rows="6">{{ student.resume_bio or '' }}</textarea>
+                        <small class="text-muted">Describe your skills, qualifications, and experience. This will be
+                            visible to companies.</small>
+                    </div>
+
+
+
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success btn-lg">
+                            <i class="bi bi-check-circle"></i> Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

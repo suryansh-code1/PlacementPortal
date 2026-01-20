@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}Register - Placement Portal{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-lg">
+            <div class="card-header bg-primary text-white text-center">
+                <h4 class="mb-0"><i class="bi bi-person-plus"></i> Choose Registration Type</h4>
+            </div>
+
+
+
+
+            <div class="card-body p-4">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card h-100 border-primary hover-card">
+                            <div class="card-body text-center">
+                                <i class="bi bi-building display-1 text-primary"></i>
+                                <h5 class="card-title mt-3">Company</h5>
+                                <p class="card-text text-muted">Register as a company to post placement drives and
+                                    recruit students.</p>
+                                <a href="{{ url_for('auth.register_company') }}" class="btn btn-primary">
+                                    <i class="bi bi-arrow-right"></i> Register as Company
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="col-md-6">
+                        <div class="card h-100 border-success hover-card">
+                            <div class="card-body text-center">
+                                <i class="bi bi-mortarboard display-1 text-success"></i>
+                                <h5 class="card-title mt-3">Student</h5>
+                                <p class="card-text text-muted">Register as a student to apply for placement
+                                    opportunities.</p>
+                                <a href="{{ url_for('auth.register_student') }}" class="btn btn-success">
+                                    <i class="bi bi-arrow-right"></i> Register as Student
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="card-footer text-center">
+                <p class="mb-0">Already have an account? <a href="{{ url_for('auth.login') }}">Login here</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

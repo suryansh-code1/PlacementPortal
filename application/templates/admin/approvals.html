@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}Pending Approvals - Placement Portal{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-check-circle"></i> Pending Approvals</h2>
+    <a href="{{ url_for('admin.dashboard') }}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> Back to Dashboard
+    </a>
+</div>
+
+
+
+
+<div class="row g-4">
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0"><i class="bi bi-building"></i> Pending Company Registrations ({{
+                    pending_companies|length }})</h5>
+            </div>
+            <div class="card-body p-0">
+                {% if pending_companies %}
+                <div class="list-group list-group-flush">
+                    {% for company in pending_companies %}
+                    <div class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h6 class="mb-1">{{ company.name }}</h6>
+                                <small class="text-muted">HR: {{ company.hr_contact }}</small>
+                                {% if company.website %}
+                                <br><small><a href="{{ company.website }}" target="_blank">{{ company.website
+                                        }}</a></small>
+                                {% endif %}
+                            </div>
+                            <div class="btn-group btn-group-sm">
+                                <a href="{{ url_for('admin.approve_company', id=company.id) }}" class="btn btn-success">
+                                    <i class="bi bi-check"></i> Approve
+                                </a>
+                                <a href="{{ url_for('admin.reject_company', id=company.id) }}" class="btn btn-danger">
+                                    <i class="bi bi-x"></i> Reject
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center text-muted py-4">
+                    <i class="bi bi-check-circle display-4"></i>
+                    <p class="mt-2">No pending company registrations.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="bi bi-briefcase"></i> Pending Placement Drives ({{ pending_drives|length }})
+                </h5>
+            </div>
+            <div class="card-body p-0">
+                {% if pending_drives %}
+                <div class="list-group list-group-flush">
+                    {% for drive in pending_drives %}
+                    <div class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h6 class="mb-1">{{ drive.title }}</h6>
+                                <small class="text-muted">Company: {{ drive.company.name }}</small>
+                                <br><small>Deadline: {{ drive.deadline.strftime('%Y-%m-%d %H:%M') }}</small>
+                            </div>
+                            <div class="btn-group btn-group-sm">
+                                <a href="{{ url_for('admin.approve_drive', id=drive.id) }}" class="btn btn-success">
+                                    <i class="bi bi-check"></i> Approve
+                                </a>
+                                <a href="{{ url_for('admin.reject_drive', id=drive.id) }}" class="btn btn-danger">
+                                    <i class="bi bi-x"></i> Reject
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center text-muted py-4">
+                    <i class="bi bi-check-circle display-4"></i>
+                    <p class="mt-2">No pending placement drives.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Students - Placement Portal{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-people"></i> Manage Students</h2>
+    <a href="{{ url_for('admin.dashboard') }}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> Back to Dashboard
+    </a>
+</div>
+
+
+
+
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="GET" action="{{ url_for('admin.students') }}" class="row g-3">
+            <div class="col-md-10">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                    <input type="text" class="form-control" name="search" placeholder="Search by name or student ID..."
+                        value="{{ search }}">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+<div class="card">
+    <div class="card-header bg-success text-white">
+        <h5 class="mb-0">All Students ({{ students|length }})</h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Name</th>
+                        <th>Student ID</th>
+                        <th>Email</th>
+                        <th>Contact</th>
+                        <th>Applications</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    <tr>
+                        <td><strong>{{ student.name }}</strong></td>
+                        <td>{{ student.student_id }}</td>
+                        <td>{{ student.user.email }}</td>
+                        <td>{{ student.contact or 'N/A' }}</td>
+                        <td><span class="badge bg-info">{{ student.applications|length }}</span></td>
+                        <td>
+                            {% if student.user.is_active %}
+                            <span class="badge bg-success">Active</span>
+                            {% else %}
+                            <span class="badge bg-danger">Blacklisted</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                {% if student.user.is_active %}
+                                <a href="{{ url_for('admin.blacklist_student', id=student.id) }}" class="btn btn-dark"
+                                    title="Blacklist">
+                                    <i class="bi bi-slash-circle"></i>
+                                </a>
+                                {% else %}
+                                <a href="{{ url_for('admin.activate_student', id=student.id) }}" class="btn btn-info"
+                                    title="Activate">
+                                    <i class="bi bi-check-circle"></i>
+                                </a>
+                                {% endif %}
+                                <a href="{{ url_for('admin.delete_student', id=student.id) }}" class="btn btn-danger"
+                                    title="Delete"
+                                    onclick="return confirm('Are you sure you want to delete this student?')">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center text-muted py-4">No students found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
